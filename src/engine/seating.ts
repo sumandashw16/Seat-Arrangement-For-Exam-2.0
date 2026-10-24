@@ -216,8 +216,9 @@ export function generateSeating(form: FormState): EngineResult {
     for (const room of sortedRooms) {
       const roomBenches: Bench[] = [];
 
-      for (let row = 1; row <= room.rows; row++) {
-        for (let col = 1; col <= room.columns; col++) {
+      // Column-wise chronology: fill Column 1 front-to-back (Row 1..rows), then Column 2, etc.
+      for (let col = 1; col <= room.columns; col++) {
+        for (let row = 1; row <= room.rows; row++) {
           if (!dispatcher.hasRemaining()) break;
 
           const isEven = (col + row) % 2 === 0;
@@ -263,17 +264,18 @@ export function generateSeating(form: FormState): EngineResult {
     }
   } else {
     // ─── Case 2: studentsPerBench === 2 (Double Bench) ─────
-    // Flatten circuital and non-circuital students in strict roll order
-    const numericRollSort = (a: StudentEntry, b: StudentEntry) => {
-      const aT = a.rollNumber.replace(/^0+/, '') || '0';
-      const bT = b.rollNumber.replace(/^0+/, '') || '0';
+    // Keep students in section/branch chronology with numeric roll order ascending within each section
+    const numericRollSort = (a: string, b: string) => {
+      const aT = a.replace(/^0+/, '') || '0';
+      const bT = b.replace(/^0+/, '') || '0';
       if (aT.length !== bT.length) return aT.length - bT.length;
       return aT < bT ? -1 : aT > bT ? 1 : 0;
     };
 
     const cStudents: StudentEntry[] = [];
     for (const sec of circuitalSections) {
-      for (const roll of sec.students) {
+      const sorted = [...sec.students].sort(numericRollSort);
+      for (const roll of sorted) {
         cStudents.push({
           rollNumber: roll,
           sectionId: sec.sectionId,
@@ -282,11 +284,11 @@ export function generateSeating(form: FormState): EngineResult {
         });
       }
     }
-    cStudents.sort(numericRollSort);
 
     const nStudents: StudentEntry[] = [];
     for (const sec of nonCircuitalSections) {
-      for (const roll of sec.students) {
+      const sorted = [...sec.students].sort(numericRollSort);
+      for (const roll of sorted) {
         nStudents.push({
           rollNumber: roll,
           sectionId: sec.sectionId,
@@ -295,7 +297,6 @@ export function generateSeating(form: FormState): EngineResult {
         });
       }
     }
-    nStudents.sort(numericRollSort);
 
     const totalPairs = Math.min(cStudents.length, nStudents.length);
     let pairIdx = 0;
@@ -309,8 +310,9 @@ export function generateSeating(form: FormState): EngineResult {
     for (const room of sortedRooms) {
       const roomBenches: Bench[] = [];
 
-      for (let row = 1; row <= room.rows; row++) {
-        for (let col = 1; col <= room.columns; col++) {
+      // Column-wise chronology: fill Column 1 front-to-back (Row 1..rows), then Column 2, etc.
+      for (let col = 1; col <= room.columns; col++) {
+        for (let row = 1; row <= room.rows; row++) {
           if (pairIdx >= totalPairs && leftoverIdx >= leftovers.length) {
             break;
           }

@@ -1083,39 +1083,39 @@ describe('Test 15: User exact scenario: Room C-101 (4C x 8R, CSE + ECE + MME)', 
       });
     }
 
-    // Row 1: CSE, MME, CSE, MME
+    // Column 1: filled top-to-bottom alternating C/N
     expect(benchMap.get('1,1')?.branch).toBe('CSE');
-    expect(benchMap.get('2,1')?.branch).toBe('MME');
-    expect(benchMap.get('3,1')?.branch).toBe('CSE');
-    expect(benchMap.get('4,1')?.branch).toBe('MME');
-
-    // Row 2: MME, CSE, MME, CSE
     expect(benchMap.get('1,2')?.branch).toBe('MME');
-    expect(benchMap.get('2,2')?.branch).toBe('CSE');
-    expect(benchMap.get('3,2')?.branch).toBe('MME');
-    expect(benchMap.get('4,2')?.branch).toBe('CSE');
-
-    // Row 3: CSE, MME, CSE, MME
     expect(benchMap.get('1,3')?.branch).toBe('CSE');
+    expect(benchMap.get('1,4')?.branch).toBe('MME');
+
+    // Column 2: filled top-to-bottom alternating N/C
+    expect(benchMap.get('2,1')?.branch).toBe('MME');
+    expect(benchMap.get('2,2')?.branch).toBe('CSE');
     expect(benchMap.get('2,3')?.branch).toBe('MME');
-    expect(benchMap.get('3,3')?.branch).toBe('CSE');
-    expect(benchMap.get('4,3')?.branch).toBe('MME');
+    expect(benchMap.get('2,4')?.branch).toBe('CSE');
 
-    // Verify rolls within CSE are strictly in order: 26, 27, 28, 29, 58, 59
+    // Verify rolls within CSE are strictly sequential column-wise:
+    // Col 1: (1,1)=26, (1,3)=27, (1,5)=28, (1,7)=29
+    // Col 2: (2,2)=58, (2,4)=59
     expect(benchMap.get('1,1')?.roll).toBe('2402040026');
-    expect(benchMap.get('3,1')?.roll).toBe('2402040027');
-    expect(benchMap.get('2,2')?.roll).toBe('2402040028');
-    expect(benchMap.get('4,2')?.roll).toBe('2402040029');
-    expect(benchMap.get('1,3')?.roll).toBe('2402040058');
-    expect(benchMap.get('3,3')?.roll).toBe('2402040059');
+    expect(benchMap.get('1,3')?.roll).toBe('2402040027');
+    expect(benchMap.get('1,5')?.roll).toBe('2402040028');
+    expect(benchMap.get('1,7')?.roll).toBe('2402040029');
+    expect(benchMap.get('2,2')?.roll).toBe('2402040058');
+    expect(benchMap.get('2,4')?.roll).toBe('2402040059');
 
-    // Verify rolls within MME are strictly in order: 19..29
-    expect(benchMap.get('2,1')?.roll).toBe('2102040019');
-    expect(benchMap.get('4,1')?.roll).toBe('2102040020');
-    expect(benchMap.get('1,2')?.roll).toBe('2102040021');
-    expect(benchMap.get('3,2')?.roll).toBe('2102040022');
-    expect(benchMap.get('2,3')?.roll).toBe('2102040023');
-    expect(benchMap.get('4,3')?.roll).toBe('2102040024');
+    // Verify rolls within MME are strictly sequential column-wise:
+    // Col 1: (1,2)=19, (1,4)=20, (1,6)=21, (1,8)=22
+    // Col 2: (2,1)=23, (2,3)=24, (2,5)=25, (2,7)=26
+    expect(benchMap.get('1,2')?.roll).toBe('2102040019');
+    expect(benchMap.get('1,4')?.roll).toBe('2102040020');
+    expect(benchMap.get('1,6')?.roll).toBe('2102040021');
+    expect(benchMap.get('1,8')?.roll).toBe('2102040022');
+    expect(benchMap.get('2,1')?.roll).toBe('2102040023');
+    expect(benchMap.get('2,3')?.roll).toBe('2102040024');
+    expect(benchMap.get('2,5')?.roll).toBe('2102040025');
+    expect(benchMap.get('2,7')?.roll).toBe('2102040026');
 
     // Check diagonal consistency: (1,1) CSE === (2,2) CSE
     expect(benchMap.get('1,1')?.branch).toBe(benchMap.get('2,2')?.branch);
