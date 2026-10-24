@@ -2,34 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Clean Enterprise SaaS Design Tokens (Default Light Mode) ── */
+/* ── Premium Light Mode Design Tokens ────────────────────────── */
 :root {
-  --bg-primary: #f8fafc;        /* slate-50 neutral light surface */
-  --bg-secondary: #f1f5f9;      /* slate-100 subtle surface */
-  --bg-card: #ffffff;           /* crisp pure white card surface */
-  --bg-card-hover: #f8fafc;
-  --bg-card-subtle: #f8fafc;
+  --bg-primary: #f0f4ff;        /* cool blue-tinted off-white */
+  --bg-secondary: #e8edf8;      /* slightly deeper tinted surface */
+  --bg-card: #ffffff;           /* crisp white card */
+  --bg-card-hover: #f5f8ff;
+  --bg-card-subtle: #f5f8ff;
   --bg-input: #ffffff;
-  --border-primary: #e2e8f0;    /* slate-200 thin divider/border */
-  --border-secondary: #cbd5e1;  /* slate-300 input border */
-  --border-focus: #2563eb;      /* muted enterprise blue accent */
-  --text-primary: #0f172a;      /* deep charcoal slate-900 */
-  --text-secondary: #334155;    /* charcoal slate-700 */
-  --text-muted: #64748b;        /* muted slate-500 */
-  --accent-primary: #2563eb;    /* single muted blue accent (blue-600) */
-  --accent-hover: #1d4ed8;      /* blue-700 */
-  --accent-subtle: #eff6ff;     /* blue-50 */
-  --accent-border: #bfdbfe;     /* blue-200 */
-  --accent-glow: rgba(37, 99, 235, 0.12);
-  --success: #16a34a;
-  --success-bg: #f0fdf4;
-  --success-border: #bbf7d0;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --warning-border: #fde68a;
-  --error: #dc2626;
-  --error-bg: #fef2f2;
-  --error-border: #fecaca;
+  --border-primary: #d1d9f0;    /* blue-tinted border */
+  --border-secondary: #b8c4e8;  /* slightly stronger input border */
+  --border-focus: #2563eb;
+  --text-primary: #0f172a;      /* near-black for strong contrast */
+  --text-secondary: #1e3a5f;    /* deep navy for secondary text */
+  --text-muted: #5b6f9e;        /* muted blue-grey */
+  --accent-primary: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-subtle: #dbeafe;
+  --accent-border: #93c5fd;
+  --accent-glow: rgba(37, 99, 235, 0.15);
+  --success: #15803d;
+  --success-bg: #dcfce7;
+  --success-border: #86efac;
+  --warning: #b45309;
+  --warning-bg: #fef9c3;
+  --warning-border: #fde047;
+  --error: #b91c1c;
+  --error-bg: #fee2e2;
+  --error-border: #fca5a5;
 }
 
 /* ── Enterprise Dark Mode (Clean Slate/Charcoal SaaS) ───────── */

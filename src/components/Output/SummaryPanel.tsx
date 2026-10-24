@@ -36,7 +36,7 @@ export const SummaryPanel: React.FC<Props> = ({
   }, [layouts]);
 
   return (
-    <div className="glass-card p-5 sm:p-6 mb-6">
+    <div className="glass-card p-5 sm:p-6 mb-6 no-print">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 pb-5 border-b border-slate-200 dark:border-slate-800">
         {/* Title */}
         <div>

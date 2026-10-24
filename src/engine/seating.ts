@@ -58,6 +58,16 @@ class SingleBenchStudentDispatcher {
         });
       }
     }
+
+    // Sort each branch list numerically by roll number ascending
+    const numericSort = (a: StudentEntry, b: StudentEntry) => {
+      const aT = a.rollNumber.replace(/^0+/, '') || '0';
+      const bT = b.rollNumber.replace(/^0+/, '') || '0';
+      if (aT.length !== bT.length) return aT.length - bT.length;
+      return aT < bT ? -1 : aT > bT ? 1 : 0;
+    };
+    for (const list of this.circuitalBranches.values()) list.sort(numericSort);
+    for (const list of this.nonCircuitalBranches.values()) list.sort(numericSort);
   }
 
   public hasRemaining(): boolean {
@@ -254,6 +264,13 @@ export function generateSeating(form: FormState): EngineResult {
   } else {
     // ─── Case 2: studentsPerBench === 2 (Double Bench) ─────
     // Flatten circuital and non-circuital students in strict roll order
+    const numericRollSort = (a: StudentEntry, b: StudentEntry) => {
+      const aT = a.rollNumber.replace(/^0+/, '') || '0';
+      const bT = b.rollNumber.replace(/^0+/, '') || '0';
+      if (aT.length !== bT.length) return aT.length - bT.length;
+      return aT < bT ? -1 : aT > bT ? 1 : 0;
+    };
+
     const cStudents: StudentEntry[] = [];
     for (const sec of circuitalSections) {
       for (const roll of sec.students) {
@@ -265,6 +282,7 @@ export function generateSeating(form: FormState): EngineResult {
         });
       }
     }
+    cStudents.sort(numericRollSort);
 
     const nStudents: StudentEntry[] = [];
     for (const sec of nonCircuitalSections) {
@@ -277,6 +295,7 @@ export function generateSeating(form: FormState): EngineResult {
         });
       }
     }
+    nStudents.sort(numericRollSort);
 
     const totalPairs = Math.min(cStudents.length, nStudents.length);
     let pairIdx = 0;

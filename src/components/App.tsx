@@ -38,6 +38,7 @@ import {
   LogOut,
   User,
   Loader2,
+  BookmarkPlus,
 } from 'lucide-react';
 
 export default function App() {
@@ -69,11 +70,14 @@ export default function App() {
 
   const {
     layouts: savedLayouts,
+    loading: isLayoutsLoading,
+    error: layoutsError,
     saveLayout,
     deleteLayout,
     renameLayout,
     exportAllJson,
     importJson,
+    refetch: refetchLayouts,
   } = useCloudLayouts(userId);
 
   const [result, setResult] = useState<EngineResult | null>(null);
@@ -242,11 +246,11 @@ export default function App() {
   return (
     <div
       className={`min-h-screen ${
-        theme === 'dark' ? 'dark bg-[#0b0f17] text-slate-100' : 'bg-slate-50 text-slate-900'
+        theme === 'dark' ? 'dark bg-[#0b0f17] text-slate-100' : 'bg-[#f0f4ff] text-slate-900'
       } flex flex-col selection:bg-blue-600 selection:text-white transition-colors duration-150`}
     >
       {/* Top Navigation Bar */}
-      <header className="border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#111827]/95 backdrop-blur-sm sticky top-0 z-40 no-print">
+      <header className="border-b border-[#d1d9f0] dark:border-slate-800 bg-white/95 dark:bg-[#111827]/95 backdrop-blur-sm sticky top-0 z-40 no-print shadow-sm shadow-blue-100/50 dark:shadow-none">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-md bg-blue-600 text-white flex items-center justify-center shadow-sm">
@@ -297,6 +301,16 @@ export default function App() {
             >
               <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
               <span className="hidden sm:inline">Load Demo Data</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setIsSaveDialogOpen(true)}
+              className="btn-secondary flex items-center gap-1.5 py-1 px-2.5 text-xs font-semibold text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900 bg-blue-50/50 dark:bg-blue-950/20"
+              title="Save current room and branch setup to your account"
+            >
+              <BookmarkPlus className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+              <span className="hidden sm:inline">Save Configuration</span>
             </button>
 
             <button
@@ -533,8 +547,8 @@ export default function App() {
       <SaveLayoutDialog
         isOpen={isSaveDialogOpen}
         onClose={() => setIsSaveDialogOpen(false)}
-        onSave={(name) => {
-          saveLayout(name, form, result);
+        onSave={async (name) => {
+          return await saveLayout(name, form, result);
         }}
       />
 
@@ -542,15 +556,18 @@ export default function App() {
         isOpen={isSavedLayoutsOpen}
         onClose={() => setIsSavedLayoutsOpen(false)}
         layouts={savedLayouts}
-        onLoadLayout={(loaded) => {
-          loadForm(loaded);
-          setResult(null);
+        onLoadLayout={(loadedState, loadedResult) => {
+          loadForm(loadedState);
+          setResult(loadedResult ?? null);
           setActiveErrors([]);
         }}
         onDeleteLayout={deleteLayout}
         onRenameLayout={renameLayout}
         onExportAll={exportAllJson}
         onImportJson={importJson}
+        onRefresh={refetchLayouts}
+        isLoading={isLayoutsLoading}
+        cloudError={layoutsError}
       />
 
       {/* Auth — loading spinner while session initializes */}

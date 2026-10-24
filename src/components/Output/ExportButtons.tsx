@@ -86,15 +86,15 @@ export const ExportButtons: React.FC<Props> = ({
           <span>Export JSON</span>
         </button>
 
-        {/* Save to LocalStorage */}
+        {/* Save Configuration */}
         <button
           type="button"
           id="save-layout-button"
           onClick={onOpenSaveDialog}
-          className="btn-secondary flex items-center gap-1.5 py-1.5 px-3 text-xs font-medium text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900/60 bg-blue-50/50 dark:bg-blue-950/20 hover:bg-blue-50"
+          className="btn-secondary flex items-center gap-1.5 py-1.5 px-3 text-xs font-semibold text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900/60 bg-blue-50/50 dark:bg-blue-950/20 hover:bg-blue-50"
         >
           <BookmarkPlus className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-          <span>Save Plan</span>
+          <span>Save Configuration</span>
         </button>
 
         {/* Open Saved Plans */}
