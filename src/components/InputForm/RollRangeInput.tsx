@@ -22,14 +22,14 @@ export const RollRangeInput: React.FC<Props> = ({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <label className="text-xs font-medium text-gray-300 flex items-center gap-1">
-          <Hash className="w-3.5 h-3.5 text-indigo-400" />
+        <label className="text-xs font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1">
+          <Hash className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
           Roll Number Ranges (Continuous blocks)
         </label>
         <button
           type="button"
           onClick={onAddRange}
-          className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 font-medium transition-colors"
+          className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 font-medium transition-colors"
         >
           <Plus className="w-3.5 h-3.5" />
           Add Range
@@ -73,13 +73,13 @@ export const RollRangeInput: React.FC<Props> = ({
                     value={range.start}
                     onChange={(e) => onUpdateRange(idx, { start: e.target.value.trim() })}
                     placeholder="Start roll (e.g. 2402041101)"
-                    className={`input-field font-mono text-xs py-2 ${
+                    className={`input-field font-mono text-xs py-1.5 px-2.5 ${
                       startErr || rangeErr ? 'border-red-500 ring-1 ring-red-500' : ''
                     }`}
                   />
                 </div>
 
-                <span className="text-xs text-gray-500 font-mono">to</span>
+                <span className="text-xs text-slate-400 font-mono">to</span>
 
                 <div className="flex-1">
                   <input
@@ -87,14 +87,14 @@ export const RollRangeInput: React.FC<Props> = ({
                     value={range.end}
                     onChange={(e) => onUpdateRange(idx, { end: e.target.value.trim() })}
                     placeholder="End roll (e.g. 2402041160)"
-                    className={`input-field font-mono text-xs py-2 ${
+                    className={`input-field font-mono text-xs py-1.5 px-2.5 ${
                       endErr || rangeErr ? 'border-red-500 ring-1 ring-red-500' : ''
                     }`}
                   />
                 </div>
 
                 {rangeCount !== null && (
-                  <span className="text-[11px] font-mono text-indigo-400 bg-indigo-500/10 px-2 py-1 rounded border border-indigo-500/20 whitespace-nowrap">
+                  <span className="text-[11px] font-mono text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/40 px-2 py-1 rounded border border-blue-200 dark:border-blue-900/50 whitespace-nowrap">
                     {rangeCount} stds
                   </span>
                 )}
@@ -103,17 +103,17 @@ export const RollRangeInput: React.FC<Props> = ({
                   <button
                     type="button"
                     onClick={() => onRemoveRange(idx)}
-                    className="p-1.5 text-gray-500 hover:text-red-400 transition-colors"
+                    className="p-1 rounded text-slate-400 hover:text-red-600 transition-colors"
                     title="Remove range"
                     aria-label={`Remove range ${idx + 1}`}
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 )}
               </div>
 
               {(startErr || endErr || rangeErr) && (
-                <p className="text-[11px] text-red-400 font-medium">
+                <p className="text-[11px] text-red-600 dark:text-red-400 font-medium">
                   {startErr?.message || endErr?.message || rangeErr?.message}
                 </p>
               )}

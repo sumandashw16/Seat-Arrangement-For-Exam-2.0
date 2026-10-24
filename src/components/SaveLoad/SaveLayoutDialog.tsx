@@ -29,29 +29,29 @@ export const SaveLayoutDialog: React.FC<Props> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
-      <div className="w-full max-w-md p-6 rounded-2xl bg-[#161628] border border-[#2e2e4a] shadow-2xl space-y-4">
-        <div className="flex items-center justify-between">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-fadeIn">
+      <div className="w-full max-w-md p-6 rounded-lg bg-white dark:bg-[#151d2c] border border-slate-200 dark:border-slate-800 shadow-xl space-y-4">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-2">
-            <BookmarkPlus className="w-5 h-5 text-indigo-400" />
-            <h3 className="text-base font-bold text-white">Save Seating Plan</h3>
+            <BookmarkPlus className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">Save Seating Plan</h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-white"
+            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-slate-500 dark:text-slate-400">
           Save the current configuration and generated seating arrangement to your local browser storage.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
               Plan Title
             </label>
             <input
@@ -65,18 +65,18 @@ export const SaveLayoutDialog: React.FC<Props> = ({
             />
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-2">
+          <div className="flex items-center justify-end gap-2.5 pt-2">
             <button
               type="button"
               onClick={onClose}
-              className="btn-ghost py-2 px-4"
+              className="btn-secondary py-1.5 px-3.5 text-xs"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!name.trim()}
-              className="btn-primary py-2 px-5 text-xs font-semibold"
+              className="btn-primary py-1.5 px-4 text-xs font-semibold"
             >
               Save to Storage
             </button>

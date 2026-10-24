@@ -69,22 +69,21 @@ export const SavedLayoutsList: React.FC<Props> = ({
       }
     };
     reader.readAsText(file);
-    // Reset input
     e.target.value = '';
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
-      <div className="w-full max-w-2xl p-6 rounded-2xl bg-[#161628] border border-[#2e2e4a] shadow-2xl space-y-4 max-h-[85vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-fadeIn">
+      <div className="w-full max-w-2xl p-5 sm:p-6 rounded-lg bg-white dark:bg-[#151d2c] border border-slate-200 dark:border-slate-800 shadow-xl space-y-4 max-h-[85vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-[#232338]">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
+            <div className="w-8 h-8 rounded bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-200/60 dark:border-blue-900/40">
               <FolderOpen className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">Saved Layouts & Plans</h3>
-              <p className="text-xs text-gray-400">
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">Saved Layouts & Plans</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Browse, reload, export or import past exam arrangements
               </p>
             </div>
@@ -92,15 +91,15 @@ export const SavedLayoutsList: React.FC<Props> = ({
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-white p-1 rounded-lg"
+            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Global JSON Actions */}
-        <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-[#12121e] border border-[#232338]">
-          <span className="text-xs text-gray-400 font-medium">
+        <div className="flex items-center justify-between gap-3 p-2.5 rounded-md bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+          <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">
             {layouts.length} saved arrangement{layouts.length !== 1 ? 's' : ''} in storage
           </span>
 
@@ -109,18 +108,18 @@ export const SavedLayoutsList: React.FC<Props> = ({
               type="button"
               onClick={onExportAll}
               disabled={layouts.length === 0}
-              className="btn-ghost flex items-center gap-1.5 py-1.5 px-3 text-xs"
+              className="btn-secondary flex items-center gap-1.5 py-1 px-2.5 text-xs font-medium"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-3 h-3" />
               Backup All JSON
             </button>
 
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="btn-ghost flex items-center gap-1.5 py-1.5 px-3 text-xs"
+              className="btn-secondary flex items-center gap-1.5 py-1 px-2.5 text-xs font-medium"
             >
-              <Upload className="w-3.5 h-3.5" />
+              <Upload className="w-3 h-3" />
               Import JSON
             </button>
             <input
@@ -134,15 +133,15 @@ export const SavedLayoutsList: React.FC<Props> = ({
         </div>
 
         {importError && (
-          <div className="p-2.5 rounded-lg bg-red-500/10 border border-red-500/30 text-xs text-red-300">
+          <div className="p-2.5 rounded-md bg-rose-50 border border-rose-200 text-xs text-rose-700">
             {importError}
           </div>
         )}
 
         {/* Layouts List */}
-        <div className="flex-1 overflow-y-auto space-y-2.5 pr-1">
+        <div className="flex-1 overflow-y-auto space-y-2 pr-1">
           {layouts.length === 0 ? (
-            <div className="text-center py-12 text-gray-500 text-xs">
+            <div className="text-center py-12 text-slate-400 text-xs">
               No saved arrangements found. Generate a seating plan and click &quot;Save Plan&quot; to preserve it here.
             </div>
           ) : (
@@ -159,7 +158,7 @@ export const SavedLayoutsList: React.FC<Props> = ({
               return (
                 <div
                   key={item.id}
-                  className="p-3.5 rounded-xl bg-[#141424] border border-[#232338] hover:border-indigo-500/30 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="p-3 rounded-md bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm"
                 >
                   <div className="flex-1 min-w-0">
                     {editingId === item.id ? (
@@ -174,20 +173,20 @@ export const SavedLayoutsList: React.FC<Props> = ({
                         <button
                           type="button"
                           onClick={() => commitRename(item.id)}
-                          className="p-1.5 text-emerald-400 hover:text-white"
+                          className="p-1 text-emerald-600 hover:text-emerald-700"
                         >
                           <Check className="w-4 h-4" />
                         </button>
                       </div>
                     ) : (
                       <div className="flex items-center gap-2">
-                        <h4 className="text-sm font-bold text-white truncate">
+                        <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
                           {item.name}
                         </h4>
                         <button
                           type="button"
                           onClick={() => startRename(item)}
-                          className="p-1 text-gray-500 hover:text-gray-300 transition-colors"
+                          className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
                           title="Rename"
                         >
                           <Edit2 className="w-3 h-3" />
@@ -195,14 +194,14 @@ export const SavedLayoutsList: React.FC<Props> = ({
                       </div>
                     )}
 
-                    <div className="flex items-center gap-3 text-[11px] text-gray-400 font-mono mt-1">
+                    <div className="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-0.5">
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-gray-500" />
+                        <Calendar className="w-3 h-3 text-slate-400" />
                         {dateStr}
                       </span>
                       <span>•</span>
                       <span className="flex items-center gap-1">
-                        <Layers className="w-3 h-3 text-gray-500" />
+                        <Layers className="w-3 h-3 text-slate-400" />
                         {roomsCount} room{roomsCount !== 1 ? 's' : ''}
                       </span>
                     </div>
@@ -215,20 +214,20 @@ export const SavedLayoutsList: React.FC<Props> = ({
                         onLoadLayout(item.inputState);
                         onClose();
                       }}
-                      className="btn-secondary py-1.5 px-3 text-xs font-semibold flex items-center gap-1.5"
+                      className="btn-secondary py-1 px-2.5 text-xs font-medium flex items-center gap-1 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900 bg-blue-50/50 dark:bg-blue-950/20"
                     >
                       <span>Load</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-3 h-3" />
                     </button>
 
                     <button
                       type="button"
                       onClick={() => onDeleteLayout(item.id)}
-                      className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                      className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded transition-colors"
                       title="Delete"
                       aria-label={`Delete ${item.name}`}
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>

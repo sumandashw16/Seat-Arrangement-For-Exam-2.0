@@ -32,28 +32,28 @@ export const RoomCard: React.FC<Props> = ({
   return (
     <div
       id={`room-card-${room.id}`}
-      className="p-4 rounded-xl bg-[#141422] border border-[#232338] hover:border-indigo-500/40 transition-all duration-200"
+      className="p-4 rounded-lg bg-white dark:bg-[#151d2c] border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm transition-all duration-150"
     >
-      <div className="flex items-center justify-between gap-3 mb-3">
+      <div className="flex items-center justify-between gap-3 mb-3 pb-3 border-b border-slate-100 dark:border-slate-800/80">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-mono text-xs font-bold border border-indigo-500/20">
+          <div className="w-6 h-6 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center font-mono text-xs font-semibold border border-slate-200 dark:border-slate-700">
             {index + 1}
           </div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+          <span className="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
             Room #{index + 1}
           </span>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs font-medium text-gray-300 bg-[#1c1c30] px-2.5 py-1 rounded-md border border-[#2a2a44]">
-            <span className="text-indigo-400 font-bold font-mono">{benchCount}</span> benches ({studentCapacity} seats)
+          <span className="text-xs font-medium text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 px-2.5 py-1 rounded border border-slate-200 dark:border-slate-700">
+            <span className="text-blue-600 dark:text-blue-400 font-bold font-mono">{benchCount}</span> benches ({studentCapacity} seats)
           </span>
 
           {canRemove && (
             <button
               type="button"
               onClick={onRemove}
-              className="p-1.5 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+              className="p-1 rounded text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
               title="Delete room"
               aria-label={`Delete room ${room.name || index + 1}`}
             >
@@ -66,8 +66,8 @@ export const RoomCard: React.FC<Props> = ({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {/* Room Name */}
         <div>
-          <label className="block text-xs font-medium text-gray-300 mb-1 flex items-center gap-1.5">
-            <School className="w-3.5 h-3.5 text-indigo-400" />
+          <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-1.5">
+            <School className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             Room Name / Hall No.
           </label>
           <input
@@ -79,14 +79,14 @@ export const RoomCard: React.FC<Props> = ({
             className={`input-field ${nameError ? 'border-red-500 ring-1 ring-red-500' : ''}`}
           />
           {nameError && (
-            <p className="text-[11px] text-red-400 mt-1 font-medium">{nameError.message}</p>
+            <p className="text-[11px] text-red-600 dark:text-red-400 mt-1 font-medium">{nameError.message}</p>
           )}
         </div>
 
         {/* Columns */}
         <div>
-          <label className="block text-xs font-medium text-gray-300 mb-1 flex items-center gap-1.5">
-            <Columns className="w-3.5 h-3.5 text-purple-400" />
+          <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-1.5">
+            <Columns className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             Columns (Aisle Count)
           </label>
           <input
@@ -95,17 +95,19 @@ export const RoomCard: React.FC<Props> = ({
             id={`room-${index}-columns`}
             value={room.columns || ''}
             onChange={(e) => onUpdate({ columns: parseInt(e.target.value, 10) || 0 })}
+            onWheel={(e) => e.currentTarget.blur()}
+            placeholder="e.g. 4"
             className={`input-field font-mono ${columnsError ? 'border-red-500 ring-1 ring-red-500' : ''}`}
           />
           {columnsError && (
-            <p className="text-[11px] text-red-400 mt-1 font-medium">{columnsError.message}</p>
+            <p className="text-[11px] text-red-600 dark:text-red-400 mt-1 font-medium">{columnsError.message}</p>
           )}
         </div>
 
         {/* Rows */}
         <div>
-          <label className="block text-xs font-medium text-gray-300 mb-1 flex items-center gap-1.5">
-            <Rows className="w-3.5 h-3.5 text-pink-400" />
+          <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-1.5">
+            <Rows className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             Rows (Depth)
           </label>
           <input
@@ -114,10 +116,12 @@ export const RoomCard: React.FC<Props> = ({
             id={`room-${index}-rows`}
             value={room.rows || ''}
             onChange={(e) => onUpdate({ rows: parseInt(e.target.value, 10) || 0 })}
+            onWheel={(e) => e.currentTarget.blur()}
+            placeholder="e.g. 6"
             className={`input-field font-mono ${rowsError ? 'border-red-500 ring-1 ring-red-500' : ''}`}
           />
           {rowsError && (
-            <p className="text-[11px] text-red-400 mt-1 font-medium">{rowsError.message}</p>
+            <p className="text-[11px] text-red-600 dark:text-red-400 mt-1 font-medium">{rowsError.message}</p>
           )}
         </div>
       </div>

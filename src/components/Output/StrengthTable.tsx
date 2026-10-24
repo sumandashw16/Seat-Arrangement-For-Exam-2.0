@@ -168,7 +168,7 @@ export const StrengthTable: React.FC<Props> = ({ layouts }) => {
           <button
             type="button"
             onClick={handlePrint}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded text-xs font-bold transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-xs font-semibold transition-colors"
           >
             <Printer className="w-3.5 h-3.5" />
             Print Strength Sheet
@@ -177,7 +177,7 @@ export const StrengthTable: React.FC<Props> = ({ layouts }) => {
           <button
             type="button"
             onClick={handleExportCSV}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-bold transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-md text-xs font-semibold transition-colors"
           >
             <Download className="w-3.5 h-3.5" />
             Export CSV

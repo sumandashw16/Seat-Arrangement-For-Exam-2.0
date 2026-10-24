@@ -42,24 +42,24 @@ export const ExportButtons: React.FC<Props> = ({
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-[#141424] border border-[#232338] mb-6 no-print">
+    <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-lg bg-white dark:bg-[#151d2c] border border-slate-200 dark:border-slate-800 shadow-sm mb-6 no-print">
       <div className="flex items-center gap-2">
-        <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
-          Actions & Exports:
+        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Export & Storage:
         </span>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2.5">
+      <div className="flex flex-wrap items-center gap-2">
         {/* Print Chart */}
         <button
           type="button"
           id="print-seating-button"
           onClick={handlePrint}
-          className="btn-secondary flex items-center gap-1.5 py-2 px-3.5 text-xs font-semibold"
+          className="btn-secondary flex items-center gap-1.5 py-1.5 px-3 text-xs font-medium"
           title="Print layout or save as PDF (page break per room)"
         >
-          <Printer className="w-4 h-4 text-indigo-400" />
-          Print / PDF
+          <Printer className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
+          <span>Print / PDF</span>
         </button>
 
         {/* CSV Export */}
@@ -67,11 +67,11 @@ export const ExportButtons: React.FC<Props> = ({
           type="button"
           id="export-csv-button"
           onClick={handleExportCSV}
-          className="btn-secondary flex items-center gap-1.5 py-2 px-3.5 text-xs font-semibold"
+          className="btn-secondary flex items-center gap-1.5 py-1.5 px-3 text-xs font-medium"
           title="Export bench-by-bench seat allocations to CSV"
         >
-          <Download className="w-4 h-4 text-emerald-400" />
-          Export CSV
+          <Download className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
+          <span>Export CSV</span>
         </button>
 
         {/* Export JSON */}
@@ -79,11 +79,11 @@ export const ExportButtons: React.FC<Props> = ({
           type="button"
           id="export-json-button"
           onClick={handleExportSingleJSON}
-          className="btn-secondary flex items-center gap-1.5 py-2 px-3.5 text-xs font-semibold"
+          className="btn-secondary flex items-center gap-1.5 py-1.5 px-3 text-xs font-medium"
           title="Export complete plan data as JSON"
         >
-          <FileJson className="w-4 h-4 text-purple-400" />
-          Export JSON
+          <FileJson className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
+          <span>Export JSON</span>
         </button>
 
         {/* Save to LocalStorage */}
@@ -91,10 +91,10 @@ export const ExportButtons: React.FC<Props> = ({
           type="button"
           id="save-layout-button"
           onClick={onOpenSaveDialog}
-          className="btn-secondary flex items-center gap-1.5 py-2 px-3.5 text-xs font-semibold border-indigo-500/40"
+          className="btn-secondary flex items-center gap-1.5 py-1.5 px-3 text-xs font-medium text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900/60 bg-blue-50/50 dark:bg-blue-950/20 hover:bg-blue-50"
         >
-          <BookmarkPlus className="w-4 h-4 text-cyan-400" />
-          Save Plan
+          <BookmarkPlus className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+          <span>Save Plan</span>
         </button>
 
         {/* Open Saved Plans */}
@@ -102,10 +102,10 @@ export const ExportButtons: React.FC<Props> = ({
           type="button"
           id="view-saved-layouts-button"
           onClick={onOpenSavedLayouts}
-          className="btn-ghost flex items-center gap-1.5 py-2 px-3.5 text-xs font-semibold"
+          className="btn-ghost flex items-center gap-1.5 py-1.5 px-3 text-xs font-medium"
         >
-          <FolderOpen className="w-4 h-4" />
-          Saved Plans
+          <FolderOpen className="w-3.5 h-3.5 text-slate-500" />
+          <span>Saved Plans</span>
         </button>
       </div>
     </div>

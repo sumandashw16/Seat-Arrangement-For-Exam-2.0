@@ -50,9 +50,8 @@ export const SearchBar: React.FC<Props> = ({
     const el = document.getElementById(`seat-${rollNumber}`);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // Add a brief pulse animation
-      el.classList.add('animate-pulse');
-      setTimeout(() => el.classList.remove('animate-pulse'), 1500);
+      el.classList.add('ring-4', 'ring-amber-500');
+      setTimeout(() => el.classList.remove('ring-4', 'ring-amber-500'), 1500);
     }
   };
 
@@ -61,7 +60,7 @@ export const SearchBar: React.FC<Props> = ({
       <div className="flex flex-col sm:flex-row items-center gap-3">
         {/* Search Input Box */}
         <div className="relative flex-1 w-full">
-          <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             id="roll-search-input"
@@ -74,7 +73,7 @@ export const SearchBar: React.FC<Props> = ({
             <button
               type="button"
               onClick={() => onSearchChange('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
             >
               <X className="w-4 h-4" />
             </button>
@@ -83,11 +82,11 @@ export const SearchBar: React.FC<Props> = ({
 
         {/* Match Count Badge */}
         {searchQuery.trim().length > 0 && (
-          <div className="text-xs font-mono px-3 py-2 rounded-lg bg-[#141424] border border-[#262640] text-gray-300 whitespace-nowrap">
+          <div className="text-xs font-mono px-3 py-2 rounded-md bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 whitespace-nowrap">
             {matches.length === 0 ? (
-              <span className="text-red-400 font-semibold">0 matches</span>
+              <span className="text-rose-600 dark:text-rose-400 font-semibold">0 matches</span>
             ) : (
-              <span className="text-amber-300 font-bold">
+              <span className="text-amber-700 dark:text-amber-400 font-bold">
                 {matches.length} match{matches.length > 1 ? 'es' : ''} found
               </span>
             )}
@@ -97,9 +96,9 @@ export const SearchBar: React.FC<Props> = ({
 
       {/* Match Results Quick Jumps */}
       {matches.length > 0 && matches.length <= 6 && (
-        <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-[#232338]">
-          <span className="text-[11px] text-gray-400 flex items-center gap-1">
-            <Crosshair className="w-3.5 h-3.5 text-amber-400" />
+        <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-slate-200 dark:border-slate-800">
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
+            <Crosshair className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
             Jump to seat:
           </span>
           {matches.map((m) => (
@@ -107,10 +106,10 @@ export const SearchBar: React.FC<Props> = ({
               key={`${m.room}-${m.roll}`}
               type="button"
               onClick={() => scrollToSeat(m.roll)}
-              className="text-xs px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1.5 transition-colors font-mono"
+              className="text-xs px-2.5 py-1 rounded bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-900 flex items-center gap-1.5 transition-colors font-mono"
             >
               <span>{m.roll}</span>
-              <span className="text-gray-400">({m.room} C{m.column}:R{m.row})</span>
+              <span className="text-slate-500">({m.room} C{m.column}:R{m.row})</span>
             </button>
           ))}
         </div>

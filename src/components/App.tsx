@@ -230,21 +230,26 @@ export default function App() {
   return (
     <div
       className={`min-h-screen ${
-        theme === 'light' ? 'light bg-[#f8fafc] text-slate-800' : 'bg-[#0a0a0f] text-gray-100'
-      } flex flex-col selection:bg-indigo-500 selection:text-white transition-colors duration-200`}
+        theme === 'dark' ? 'dark bg-[#0b0f17] text-slate-100' : 'bg-slate-50 text-slate-900'
+      } flex flex-col selection:bg-blue-600 selection:text-white transition-colors duration-150`}
     >
       {/* Top Navigation Bar */}
-      <header className="border-b border-[#1f1f35] bg-[#0d0d17]/80 backdrop-blur-md sticky top-0 z-40 no-print">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <header className="border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#111827]/95 backdrop-blur-sm sticky top-0 z-40 no-print">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
-              <GraduationCap className="w-6 h-6" />
+            <div className="w-8 h-8 rounded-md bg-blue-600 text-white flex items-center justify-center shadow-sm">
+              <GraduationCap className="w-4 h-4" />
             </div>
             <div>
-              <h1 className="text-base sm:text-lg font-black tracking-tight bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                Seat Arrangement Planner
-              </h1>
-              <p className="text-[11px] text-gray-400 font-medium">
+              <div className="flex items-center gap-2">
+                <h1 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 tracking-tight">
+                  Seat Arrangement Planner
+                </h1>
+                <span className="text-[10px] uppercase font-semibold font-mono px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                  Enterprise
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block">
                 Deterministic Exam Hall Allocation Engine
               </p>
             </div>
@@ -256,18 +261,18 @@ export default function App() {
               type="button"
               id="theme-toggle-button"
               onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
-              className="btn-ghost flex items-center gap-1.5 py-1.5 px-3 text-xs"
+              className="btn-ghost flex items-center gap-1.5 py-1 px-2.5 text-xs font-medium"
               title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
             >
               {theme === 'light' ? (
                 <>
-                  <Moon className="w-3.5 h-3.5 text-indigo-600" />
-                  <span className="hidden sm:inline font-medium">Dark Mode</span>
+                  <Moon className="w-3.5 h-3.5 text-slate-600" />
+                  <span className="hidden sm:inline">Dark</span>
                 </>
               ) : (
                 <>
                   <Sun className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="hidden sm:inline font-medium">Light Mode</span>
+                  <span className="hidden sm:inline">Light</span>
                 </>
               )}
             </button>
@@ -275,19 +280,19 @@ export default function App() {
             <button
               type="button"
               onClick={handleLoadDemo}
-              className="btn-ghost flex items-center gap-1.5 py-1.5 px-3 text-xs text-indigo-400 border-indigo-500/30 hover:bg-indigo-500/10"
+              className="btn-secondary flex items-center gap-1.5 py-1 px-2.5 text-xs font-medium text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-900 bg-blue-50/50 dark:bg-blue-950/20"
               title="Populate complete university exam test scenario"
             >
-              <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+              <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
               <span className="hidden sm:inline">Load Demo Data</span>
             </button>
 
             <button
               type="button"
               onClick={() => setIsSavedLayoutsOpen(true)}
-              className="btn-ghost flex items-center gap-1.5 py-1.5 px-3 text-xs"
+              className="btn-secondary flex items-center gap-1.5 py-1 px-2.5 text-xs font-medium"
             >
-              <FolderOpen className="w-3.5 h-3.5 text-gray-400" />
+              <FolderOpen className="w-3.5 h-3.5 text-slate-500" />
               <span className="hidden sm:inline">Saved Plans</span>
             </button>
 
@@ -300,7 +305,7 @@ export default function App() {
                   setActiveErrors([]);
                 }
               }}
-              className="btn-ghost p-2 text-gray-400 hover:text-red-400"
+              className="btn-ghost p-1.5 text-slate-400 hover:text-rose-600"
               title="Reset Planner"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -310,7 +315,7 @@ export default function App() {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
         {/* Form Inputs (hidden when printing) */}
         <section className="no-print">
           {/* Global Setting: 1 or 2 per bench */}
@@ -352,25 +357,25 @@ export default function App() {
           />
 
           {/* Generate Button Container */}
-          <div className="flex flex-col items-center justify-center pt-2 pb-10">
+          <div className="flex flex-col items-center justify-center pt-2 pb-8">
             <button
               type="button"
               id="generate-arrangement-button"
               onClick={handleGenerate}
-              className="btn-primary text-base font-bold py-3.5 px-10 flex items-center gap-3 shadow-xl hover:shadow-indigo-500/30 hover:scale-[1.02] transition-transform"
+              className="btn-primary text-sm font-semibold py-2.5 px-7 flex items-center gap-2 shadow-sm transition-colors"
             >
-              <Wand2 className="w-5 h-5 text-indigo-200" />
+              <Wand2 className="w-4 h-4 text-white" />
               <span>Generate Seating Arrangement</span>
             </button>
-            <p className="text-xs text-gray-500 mt-2 font-mono">
-              Strict deterministic algorithm • Leftover handling • Room-capacity sorted
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-mono">
+              Deterministic exam engine • Leftover handling • Pair placement
             </p>
           </div>
         </section>
 
         {/* Output Section */}
         {result && result.ok && (
-          <section id="arrangement-results" className="pt-4 animate-fadeIn">
+          <section id="arrangement-results" className="pt-4 scroll-mt-20 animate-fadeIn">
             {/* Summary Metrics */}
             <SummaryPanel
               summary={result.summary}
@@ -391,18 +396,18 @@ export default function App() {
 
             {/* View Mode Switcher */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 no-print">
-              <div className="flex items-center gap-2 p-1.5 rounded-xl bg-[#141424] border border-[#232338]">
+              <div className="flex items-center gap-1 p-1 rounded-md bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
                 <button
                   type="button"
                   id="view-excel-grid"
                   onClick={() => setOutputView('excel')}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all ${
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-all ${
                     outputView === 'excel'
-                      ? 'bg-indigo-600 text-white shadow-md'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      ? 'bg-white dark:bg-slate-700 text-blue-700 dark:text-blue-300 shadow-sm border border-slate-200 dark:border-slate-600 font-semibold'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
                   }`}
                 >
-                  <FileSpreadsheet className="w-4 h-4" />
+                  <FileSpreadsheet className="w-3.5 h-3.5" />
                   <span>Excel Box Grid (Landscape Fit)</span>
                 </button>
 
@@ -410,35 +415,35 @@ export default function App() {
                   type="button"
                   id="view-strength-sheet"
                   onClick={() => setOutputView('strength')}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all ${
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-all ${
                     outputView === 'strength'
-                      ? 'bg-indigo-600 text-white shadow-md'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      ? 'bg-white dark:bg-slate-700 text-blue-700 dark:text-blue-300 shadow-sm border border-slate-200 dark:border-slate-600 font-semibold'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
                   }`}
                 >
-                  <Table className="w-4 h-4" />
-                  <span>Room Strength Sheet (Allotment)</span>
+                  <Table className="w-3.5 h-3.5" />
+                  <span>Room Strength Sheet</span>
                 </button>
 
                 <button
                   type="button"
                   id="view-visual-grid"
                   onClick={() => setOutputView('visual')}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition-all ${
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition-all ${
                     outputView === 'visual'
-                      ? 'bg-indigo-600 text-white shadow-md'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      ? 'bg-white dark:bg-slate-700 text-blue-700 dark:text-blue-300 shadow-sm border border-slate-200 dark:border-slate-600 font-semibold'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
                   }`}
                 >
-                  <LayoutGrid className="w-4 h-4" />
+                  <LayoutGrid className="w-3.5 h-3.5" />
                   <span>Interactive Board</span>
                 </button>
               </div>
 
-              <div className="text-xs text-gray-400 font-mono">
-                {outputView === 'excel' && '📄 Clean Excel box grid • A4 Landscape fit • No colors'}
-                {outputView === 'strength' && '📋 Room-wise strengths & registration roll lists'}
-                {outputView === 'visual' && '🎨 Live search & interactive stream colors'}
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                {outputView === 'excel' && 'Clean Excel box grid • A4 Landscape fit'}
+                {outputView === 'strength' && 'Room-wise strengths & registration roll lists'}
+                {outputView === 'visual' && 'Search & visual stream colors'}
               </div>
             </div>
 

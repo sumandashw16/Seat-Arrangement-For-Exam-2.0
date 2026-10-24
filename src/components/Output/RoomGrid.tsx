@@ -37,31 +37,31 @@ export const RoomGrid: React.FC<Props> = ({
   return (
     <div className="glass-card overflow-hidden room-card-print mb-8">
       {/* Room Header */}
-      <div className="p-5 border-b border-[#232338] bg-[#141424]">
+      <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#151d2c]">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30 font-bold">
-              <School className="w-5 h-5" />
+            <div className="w-9 h-9 rounded bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-200/60 dark:border-blue-900/40 font-bold">
+              <School className="w-4 h-4" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-lg font-bold text-white tracking-tight">
+                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                   {room.name}
                 </h3>
-                <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono">
+                <span className="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-slate-700">
                   {room.columns} cols × {room.rows} rows
                 </span>
               </div>
-              <div className="flex flex-wrap items-center gap-2 mt-1">
-                <span className="text-xs text-gray-400">Sections in room:</span>
+              <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                <span className="text-xs text-slate-500 dark:text-slate-400">Sections in room:</span>
                 {sectionsPresent.length === 0 ? (
-                  <span className="text-xs text-gray-500">None</span>
+                  <span className="text-xs text-slate-400">None</span>
                 ) : (
                   sectionsPresent.map((sec) => (
                     <span
                       key={sec}
-                      className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded text-white"
-                      style={{ backgroundColor: sectionColors.get(sec) || '#6366f1' }}
+                      className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.2 rounded text-white"
+                      style={{ backgroundColor: sectionColors.get(sec) || '#2563eb' }}
                     >
                       {sec}
                     </span>
@@ -72,21 +72,21 @@ export const RoomGrid: React.FC<Props> = ({
           </div>
 
           {/* Quick Metrics */}
-          <div className="flex items-center gap-3 text-xs font-mono">
-            <div className="px-3 py-1.5 rounded-lg bg-[#1a1a2e] border border-[#2a2a44] text-gray-300 flex items-center gap-1.5">
-              <Users className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="flex items-center gap-2.5 text-xs font-mono">
+            <div className="px-2.5 py-1 rounded bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
               <span>
-                <strong className="text-white">{totalStudents}</strong> students
+                <strong>{totalStudents}</strong> students
               </span>
             </div>
-            <div className="px-3 py-1.5 rounded-lg bg-[#1a1a2e] border border-[#2a2a44] text-gray-300 flex items-center gap-1.5">
-              <Armchair className="w-3.5 h-3.5 text-purple-400" />
+            <div className="px-2.5 py-1 rounded bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+              <Armchair className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
               <span>
-                <strong className="text-white">{totalBenchesUsed}</strong> / {room.columns * room.rows} benches
+                <strong>{totalBenchesUsed}</strong> / {room.columns * room.rows} benches
               </span>
             </div>
             {emptySeats > 0 && (
-              <div className="px-3 py-1.5 rounded-lg bg-gray-800/60 border border-gray-700 text-gray-400">
+              <div className="px-2.5 py-1 rounded bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-500">
                 <span>{emptySeats} empty seats</span>
               </div>
             )}
@@ -100,21 +100,21 @@ export const RoomGrid: React.FC<Props> = ({
       </div>
 
       {/* Bench Matrix Container */}
-      <div className="p-6 overflow-x-auto bg-[#0d0d17]">
+      <div className="p-5 sm:p-6 overflow-x-auto bg-slate-50 dark:bg-[#0e1420]">
         <div
-          className="grid gap-6 justify-center min-w-max mx-auto"
+          className="grid gap-4 justify-center min-w-max mx-auto"
           style={{
             gridTemplateColumns: `repeat(${room.columns}, minmax(180px, 1fr))`,
           }}
         >
           {cols.map((col) => (
-            <div key={col} className="flex flex-col gap-3">
+            <div key={col} className="flex flex-col gap-2.5">
               {/* Column Label */}
-              <div className="text-center pb-2 border-b border-[#232338]">
-                <span className="text-xs font-bold uppercase tracking-wider text-indigo-400 font-mono">
+              <div className="text-center pb-2 border-b border-slate-200 dark:border-slate-800">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 font-mono">
                   Column {col}
                 </span>
-                <span className="text-[10px] text-gray-500 block">
+                <span className="text-[10px] text-slate-400 block">
                   (Front → Back)
                 </span>
               </div>
@@ -134,7 +134,6 @@ export const RoomGrid: React.FC<Props> = ({
                   } else {
                     leftSeat = bench.seats.find((s) => s.side === 'left') || null;
                     rightSeat = bench.seats.find((s) => s.side === 'right') || null;
-                    // If neither explicitly has left/right (fallback)
                     if (!leftSeat && !rightSeat && bench.seats.length === 1) {
                       leftSeat = bench.seats[0];
                     }
@@ -144,12 +143,12 @@ export const RoomGrid: React.FC<Props> = ({
                 return (
                   <div
                     key={row}
-                    className="p-2 rounded-xl bg-[#131322] border border-[#202036] hover:border-indigo-500/30 transition-all duration-200"
+                    className="p-2 rounded-md bg-white dark:bg-[#151d2c] border border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 transition-all duration-150"
                   >
                     {/* Bench Header / Coordinates */}
-                    <div className="flex items-center justify-between text-[10px] text-gray-500 font-mono mb-1.5 px-0.5">
+                    <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono mb-1.5 px-0.5">
                       <span>Row {row}</span>
-                      <span className="text-gray-600">C{col}·R{row}</span>
+                      <span className="text-slate-500 font-semibold">C{col}·R{row}</span>
                     </div>
 
                     {/* Seats on this bench */}
