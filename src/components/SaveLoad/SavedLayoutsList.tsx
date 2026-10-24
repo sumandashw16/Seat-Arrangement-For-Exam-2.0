@@ -22,7 +22,7 @@ interface Props {
   onDeleteLayout: (id: string) => void;
   onRenameLayout: (id: string, newName: string) => void;
   onExportAll: () => void;
-  onImportJson: (json: string) => { ok: boolean; error?: string };
+  onImportJson: (json: string) => { ok: boolean; error?: string } | Promise<{ ok: boolean; error?: string }>;
 }
 
 export const SavedLayoutsList: React.FC<Props> = ({
@@ -59,9 +59,9 @@ export const SavedLayoutsList: React.FC<Props> = ({
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = async (event) => {
       const content = event.target?.result as string;
-      const res = onImportJson(content);
+      const res = await onImportJson(content);
       if (!res.ok) {
         setImportError(res.error || 'Failed to parse JSON file');
       } else {

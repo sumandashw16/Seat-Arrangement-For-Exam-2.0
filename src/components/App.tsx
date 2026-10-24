@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useFormState } from '../state/useFormState';
-import { useSavedLayouts } from '../state/useSavedLayouts';
+import { useCloudLayouts } from '../state/useCloudLayouts';
+import { useAuth } from '../state/useAuth';
 import { generateSeating } from '../engine/seating';
 import { validateInput } from '../engine/validate';
 import type { EngineResult, FormState, ValidationError } from '../engine/types';
@@ -21,6 +22,7 @@ import { Legend } from './Output/Legend';
 import { ExportButtons } from './Output/ExportButtons';
 import { SaveLayoutDialog } from './SaveLoad/SaveLayoutDialog';
 import { SavedLayoutsList } from './SaveLoad/SavedLayoutsList';
+import { AuthModal } from './Auth/AuthModal';
 
 import {
   Sparkles,
@@ -33,9 +35,19 @@ import {
   FileSpreadsheet,
   Table,
   LayoutGrid,
+  LogOut,
+  User,
+  Loader2,
 } from 'lucide-react';
 
 export default function App() {
+  // ── Auth ──
+  const { authState, signIn, signUp, signOut } = useAuth();
+  const userId =
+    authState.status === 'authenticated' ? authState.user.id : null;
+  const userEmail =
+    authState.status === 'authenticated' ? authState.user.email ?? '' : '';
+
   const {
     form,
     addRoom,
@@ -62,7 +74,7 @@ export default function App() {
     renameLayout,
     exportAllJson,
     importJson,
-  } = useSavedLayouts();
+  } = useCloudLayouts(userId);
 
   const [result, setResult] = useState<EngineResult | null>(null);
   const [activeErrors, setActiveErrors] = useState<ValidationError[]>([]);
@@ -310,6 +322,29 @@ export default function App() {
             >
               <RotateCcw className="w-3.5 h-3.5" />
             </button>
+
+            {/* User chip + sign out */}
+            {authState.status === 'authenticated' && (
+              <div className="flex items-center gap-1.5 pl-2 border-l border-slate-200 dark:border-slate-700">
+                <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                  <User className="w-3 h-3 text-slate-500 dark:text-slate-400" />
+                  <span className="text-xs font-medium text-slate-700 dark:text-slate-300 max-w-[140px] truncate" title={userEmail}>
+                    {userEmail}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  id="sign-out-button"
+                  onClick={() => {
+                    if (window.confirm('Sign out of your account?')) signOut();
+                  }}
+                  className="btn-ghost p-1.5 text-slate-400 hover:text-rose-600"
+                  title="Sign Out"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -517,6 +552,21 @@ export default function App() {
         onExportAll={exportAllJson}
         onImportJson={importJson}
       />
+
+      {/* Auth — loading spinner while session initializes */}
+      {authState.status === 'loading' && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 dark:bg-[#0b0f17]/80 backdrop-blur-sm">
+          <div className="flex flex-col items-center gap-3">
+            <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+            <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">Checking session…</span>
+          </div>
+        </div>
+      )}
+
+      {/* Auth modal — blocks app when unauthenticated */}
+      {authState.status === 'unauthenticated' && (
+        <AuthModal onSignIn={signIn} onSignUp={signUp} />
+      )}
     </div>
   );
 }
